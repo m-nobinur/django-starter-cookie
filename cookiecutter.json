@@ -1,0 +1,24 @@
+{
+	"project_title": "Awesome Django Project",
+	"project_name": "{{ cookiecutter.project_title.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+	"project_base": ["core", "base", "{{ cookiecutter.project_name.lower() }}"],
+	"description": "My Awesome Django Project With Batteries 🔋",
+	"author_name": "M Nobinur",
+	"domain_name": "example-domain.com",
+	"email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@domain.com",
+	"version": "0.1.0",
+	"open_source_license": [
+		"MIT",
+		"BSD",
+		"Apache Software License 2.0",
+		"Not open source"
+	],
+	"timezone": "UTC",
+	"cloud_provider": ["AWS", "GCP", "None"],
+	"mail_service": ["Gmail", "Other SMTP", "None"],
+	"frontend_compressor": ["Django Compressor", "None"],
+	"use_whitenoise": "no",
+	"use_heroku": "no",
+	"ci_tool": ["Github Action", "None"],
+	"debug": "true"
+}
