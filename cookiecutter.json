@@ -17,6 +17,7 @@
 	"cloud_provider": ["AWS", "GCP", "None"],
 	"mail_service": ["Gmail", "Other SMTP", "None"],
 	"frontend_compressor": ["Django Compressor", "None"],
+	"use_htmx": "yes",
 	"use_whitenoise": "no",
 	"use_heroku": "no",
 	"ci_tool": ["Github Action", "None"],
