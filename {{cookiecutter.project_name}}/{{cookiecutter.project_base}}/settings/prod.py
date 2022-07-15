@@ -150,7 +150,7 @@ MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 ADMIN_URL = env("DJANGO_ADMIN_URL")
 
 
-{% if cookiecutter.frontend_pipeline == 'Django Compressor' -%}
+{% if cookiecutter.frontend_compressor == 'Django Compressor' -%}
 # ==============================
 # django-compressor
 # ==============================

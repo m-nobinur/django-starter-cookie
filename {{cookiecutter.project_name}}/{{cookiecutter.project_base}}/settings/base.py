@@ -226,7 +226,7 @@ SOCIALACCOUNT_ADAPTER = "apps.users.adapters.SocialAccountAdapter"
 # ================================
 # Django-compressor CONFIG
 # ================================
-{% if cookiecutter.frontend_pipeline == 'Django Compressor' -%}
+{% if cookiecutter.frontend_compressor == 'Django Compressor' -%}
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
 INSTALLED_APPS += ["compressor"]
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
