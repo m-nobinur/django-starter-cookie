@@ -1,0 +1,23 @@
+-r base.txt
+
+# =============================
+# Production Dependencies
+# =============================
+gunicorn==20.1.0  # https://github.com/benoitc/gunicorn
+psycopg2==2.9.3  # https://github.com/psycopg/psycopg2
+dj-database-url==0.5.0
+{%- if cookiecutter.use_whitenoise == 'n' %}
+Collectfast==2.2.0  # https://github.com/antonagestam/collectfast
+{%- endif %}
+
+# =============================
+# Cloud Providers
+# =============================
+{%- if cookiecutter.cloud_provider == 'AWS' %}
+django-storages[boto3]==1.12.3  # https://github.com/jschneier/django-storages
+{%- elif cookiecutter.cloud_provider == 'GCP' %}
+django-storages[google]==1.12.3  # https://github.com/jschneier/django-storages
+{%- endif %}
+{%- if cookiecutter.mail_service == 'Other SMTP' %}
+django-anymail==8.6  # https://github.com/anymail/django-anymail
+{%- endif %}

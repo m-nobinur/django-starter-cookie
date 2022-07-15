@@ -1,0 +1,13 @@
+-r base.txt
+
+# =============================
+# Django Local Dependencies
+# =============================
+django-extensions==3.1.5  # https://github.com/django-extensions/django-extensions
+django-debug-toolbar==3.5.0  # https://github.com/jazzband/django-debug-toolbar
+Werkzeug==2.1.0 # https://github.com/pallets/werkzeug
+
+pre-commit==2.19.0  # https://github.com/pre-commit/pre-commit
+dead==1.5.0 # https://github.com/asottile/dead/
+
+-r test.txt
