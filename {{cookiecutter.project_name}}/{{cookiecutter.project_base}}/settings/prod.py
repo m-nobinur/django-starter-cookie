@@ -35,7 +35,7 @@ DATABASES = {
         },
     },
 }
-{%- endif -%}
+{% endif -%}
 
 # ==============================
 # CACHES
@@ -161,7 +161,7 @@ COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
 {%- elif cookiecutter.cloud_provider in ('AWS', 'GCP') and cookiecutter.use_whitenoise == 'n' %}
 COMPRESS_STORAGE = STATICFILES_STORAGE
 {%- endif %}
-COMPRESS_URL = STATIC_URL{% if cookiecutter.use_whitenoise == 'y' or cookiecutter.cloud_provider == 'None' %}  # noqa F405{% endif %}
+COMPRESS_URL = STATIC_URL{% if cookiecutter.use_whitenoise == 'y' or cookiecutter.cloud_provider == 'None' %}  # noqa F405 {% endif %}
 {%- if cookiecutter.use_whitenoise == 'y' %}
 COMPRESS_OFFLINE = True
 COMPRESS_FILTERS = {
@@ -175,4 +175,5 @@ COMPRESS_FILTERS = {
 {%- if cookiecutter.use_whitenoise == 'n' -%}
 # https://github.com/antonagestam/collectfast#installation
 INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
+{% endif %}
 {% endif %}
