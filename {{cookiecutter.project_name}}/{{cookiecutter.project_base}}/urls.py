@@ -27,7 +27,7 @@ urlpatterns = [
     # User management
     path(
         "users/",
-        include("{{ cookiecutter.project_name }}.apps.users.urls",
+        include("apps.users.urls",
                 namespace="users")),
     # local: custom urls
     path("",
