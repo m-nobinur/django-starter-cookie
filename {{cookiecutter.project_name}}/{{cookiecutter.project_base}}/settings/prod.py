@@ -16,10 +16,10 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["{{ cookiecutter.domai
 # ==============================
 # DATABASES
 # ==============================
-{% if cookiecutter.use_heroku == 'y' -%}
+{% if cookiecutter.use_heroku == 'y' %}
 DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 # DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
-{% elif %}
+{% else %}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -123,7 +123,7 @@ MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/media/"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 {% endif -%}
 
-{% if cookiecutter.email_provider == 'Gmail' -%}
+{% if cookiecutter.mail_service == 'Gmail' -%}
 # ===================================
 # EMAIL SMTP SERVER CONFIGURATION
 # ===================================
