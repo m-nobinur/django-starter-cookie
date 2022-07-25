@@ -1,17 +1,18 @@
 import os
-{% if cookiecutter.use_heroku == 'y' -%}
+{% if cookiecutter.use_heroku == 'y' %}
 import dj_database_url
 {% endif %}
 
-from .base import *  # noqa
-
+from .base import *  # noqa F405
 
 # ==============================
 # GENERAL PRODUCTION CONFIG
 # ==============================
 DEBUG = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["{{ cookiecutter.domain_name }}"])
+ALLOWED_HOSTS = env.list(  # noqa F405
+    "DJANGO_ALLOWED_HOSTS", default=["example-domain.com"]
+)
 
 # ==============================
 # DATABASES
@@ -21,21 +22,21 @@ DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 # DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 {% else %}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB'),
-        'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('DJANGO_DATABASE_HOST'),
-        'PORT': env.int('DJANGO_DATABASE_PORT'),
-        'CONN_MAX_AGE': env.int('CONN_MAX_AGE', default=60),
-        'OPTIONS': {
-            'connect_timeout': 10,
-            'options': '-c statement_timeout=15000ms',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("DJANGO_DATABASE_HOST"),
+        "PORT": os.environ.get("DJANGO_DATABASE_PORT"),
+        "CONN_MAX_AGE": os.environ.get("CONN_MAX_AGE", default=60),
+        "OPTIONS": {
+            "connect_timeout": 10,
+            "options": "-c statement_timeout=15000ms",
         },
     },
 }
-{% endif -%}
+{% endif %}
 
 # ==============================
 # CACHES
@@ -47,11 +48,12 @@ CACHES = {
         "LOCATION": "",
     }
 }
+
 # ==============================
 # SECURITY
 # ==============================
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+SECURE_SSL_REDIRECT = os.environ.get("DJANGO_SECURE_SSL_REDIRECT", default=True)
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
@@ -149,8 +151,6 @@ MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 # ==============================
 ADMIN_URL = env("DJANGO_ADMIN_URL")
 
-
-{% if cookiecutter.frontend_compressor == 'Django Compressor' -%}
 # ==============================
 # django-compressor
 # ==============================
@@ -161,8 +161,8 @@ COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
 {%- elif cookiecutter.cloud_provider in ('AWS', 'GCP') and cookiecutter.use_whitenoise == 'n' %}
 COMPRESS_STORAGE = STATICFILES_STORAGE
 {%- endif %}
-COMPRESS_URL = STATIC_URL{% if cookiecutter.use_whitenoise == 'y' or cookiecutter.cloud_provider == 'None' %}  # noqa F405 {% endif %}
-{%- if cookiecutter.use_whitenoise == 'y' %}
+COMPRESS_URL = STATIC_URL # noqa F405
+{% if cookiecutter.use_whitenoise == 'y' %}
 COMPRESS_OFFLINE = True
 COMPRESS_FILTERS = {
     "css": [
@@ -172,8 +172,8 @@ COMPRESS_FILTERS = {
     "js": ["compressor.filters.jsmin.JSMinFilter"],
 }
 {% endif %}
-{%- if cookiecutter.use_whitenoise == 'n' -%}
+
+{% if cookiecutter.use_whitenoise == 'n' %}
 # https://github.com/antonagestam/collectfast#installation
 INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
-{% endif %}
 {% endif %}
