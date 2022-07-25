@@ -10,6 +10,6 @@ from django.core.asgi import get_asgi_application
 
 
 # If DJANGO_SETTINGS_MODULE is unset, default to the local settings
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_base }}.settings.local")
 
 django_application = get_asgi_application()

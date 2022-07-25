@@ -1,20 +1,19 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
 from django.contrib.sitemaps.views import sitemap
+from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic.base import TemplateView
 
-sitemaps = {}
+sitemaps: dict[str, str] = {}
 
 urlpatterns = [
     # core
     path(settings.ADMIN_URL, admin.site.urls),
     path(
         "robots.txt",
-        TemplateView.as_view(template_name="robots.txt",
-                             content_type="text/plain"),
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path(
         "sitemap.xml",
@@ -25,21 +24,16 @@ urlpatterns = [
     # 3rd parties
     path("accounts/", include("allauth.urls")),
     # User management
-    path(
-        "users/",
-        include("apps.users.urls",
-                namespace="users")),
+    # path("users/", include("users.urls", namespace="users")),
     # local: custom urls
-    path("",
-         TemplateView.as_view(template_name="pages/home.html"),
-         name="home"),
+    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += [
-        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
-        static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+if settings.DEBUG:  # pragma: no cover
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+    urlpatterns += [
         # This allows the error pages to be debugged during development.
         path(
             "400/",
@@ -59,7 +53,7 @@ if settings.DEBUG:
         path("500/", default_views.server_error),
     ]
 
-    if "debug_toolbar" in settings.INSTALLED_APPS:
+    if "debug_toolbar" in settings.INSTALLED_APPS:  # pragma: no cover
         urlpatterns += [
             path("__debug__/", include("debug_toolbar.urls")),
         ]
