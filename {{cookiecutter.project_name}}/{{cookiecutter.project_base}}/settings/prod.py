@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 {% if cookiecutter.use_heroku == 'y' %}
 import dj_database_url
 {% endif %}
@@ -97,7 +98,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_QUERYSTRING_AUTH = False
 
-AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
+AWS_S3_CUSTOM_DOMAIN = os.environ.get("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 S3_DOMAIN = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
 STATICFILES_STORAGE = "{{ cookiecutter.project_base }}.utils.storages.StaticRootS3Boto3Storage"
@@ -112,7 +113,7 @@ MEDIA_URL = f"https://{S3_DOMAIN}/{MEDIAFILES_LOCATION}/"
 AWS_S3_FILE_OVERWRITE = False
 
 {% elif cookiecutter.cloud_provider == 'GCP' %}
-GS_BUCKET_NAME = env("DJANGO_GCP_STORAGE_BUCKET_NAME")
+GS_BUCKET_NAME = env("DJANGO_GCP_STORAGE_BUCKET_NAME")  # noqa: F405
 GS_DEFAULT_ACL = "publicRead"
 STATICFILES_STORAGE = "{{cookiecutter.project_slug}}.utils.storages.StaticRootGoogleCloudStorage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.gcloud.GoogleCloudStrategy"
@@ -149,19 +150,19 @@ MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 # ==============================
 # ADMIN URL CONFIG
 # ==============================
-ADMIN_URL = env("DJANGO_ADMIN_URL")
+ADMIN_URL: Optional[str] = os.environ.get("DJANGO_ADMIN_URL") # type: ignore
 
 # ==============================
 # django-compressor
 # ==============================
-COMPRESS_ENABLED = env.bool("COMPRESS_ENABLED", default=True)
+COMPRESS_ENABLED = env.bool("COMPRESS_ENABLED", default=True)  # noqa: F405
 {%- if cookiecutter.cloud_provider == 'None' %}
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_STORAGE
 COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
 {%- elif cookiecutter.cloud_provider in ('AWS', 'GCP') and cookiecutter.use_whitenoise == 'n' %}
 COMPRESS_STORAGE = STATICFILES_STORAGE
 {%- endif %}
-COMPRESS_URL = STATIC_URL # noqa F405
+COMPRESS_URL = STATIC_URL # noqa: F405
 {% if cookiecutter.use_whitenoise == 'y' %}
 COMPRESS_OFFLINE = True
 COMPRESS_FILTERS = {
@@ -175,5 +176,5 @@ COMPRESS_FILTERS = {
 
 {% if cookiecutter.use_whitenoise == 'n' %}
 # https://github.com/antonagestam/collectfast#installation
-INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
+INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa: F405
 {% endif %}

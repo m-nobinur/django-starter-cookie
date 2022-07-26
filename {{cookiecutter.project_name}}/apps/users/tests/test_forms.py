@@ -1,8 +1,7 @@
 import pytest
-from django.http import request
 from users.forms import UserLoginForm, UserSignupForm
 from users.models import User
-from users.tests.fixtures import *  # noqa: F401
+from users.tests.fixtures import *  # noqa
 
 
 @pytest.mark.parametrize(

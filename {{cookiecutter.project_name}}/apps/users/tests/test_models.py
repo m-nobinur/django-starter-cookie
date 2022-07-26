@@ -1,6 +1,6 @@
 import pytest
 from users.models import User
-from users.tests.fixtures import *  # noqa: F401
+from users.tests.fixtures import *  # noqa
 
 from .factories import UserFactory
 

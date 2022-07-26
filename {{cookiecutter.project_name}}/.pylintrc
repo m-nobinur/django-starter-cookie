@@ -1,11 +1,12 @@
 [MASTER]
 load-plugins=pylint_django
 django-settings-module={{ cookiecutter.project_base }}.settings.local
+
 [FORMAT]
 max-line-length=120
 
 [MESSAGES CONTROL]
-disable=missing-docstring,invalid-name
+disable=missing-docstring,invalid-name,missing-module-docstring
 
 [DESIGN]
 max-parents=13

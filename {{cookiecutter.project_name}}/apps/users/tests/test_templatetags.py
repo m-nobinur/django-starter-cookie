@@ -1,4 +1,3 @@
-from django.forms import forms
 from django.template import Context, Template
 from users.forms import UserSignupForm
 
