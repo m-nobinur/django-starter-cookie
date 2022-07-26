@@ -14,11 +14,12 @@ def test_add_css_template_tag(db):
         }
     )
     assert form.is_valid()
-
+    {% raw %}
     template = Template(
         """{% load add_css %}
     {{ form.first_name|addcss:"border" }}"""
     )
+    {% endraw %}
     context = Context({"form": form})
     output = template.render(context)
     assert output is not None
