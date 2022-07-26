@@ -1,0 +1,35 @@
+{% raw %}
+{% if help_text_inline and not error_text_inline %}
+  {% if field.help_text %}
+    {% if help_text_inline %}
+      <p id="hint_{{ field.auto_id }}" class="text-gray-600">{{ field.help_text|safe }}</p>x
+    {% else %}
+      <small id="hint_{{ field.auto_id }}" class="text-gray-600">{{ field.help_text|safe }}</small>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% if error_text_inline %}
+  {% if field.errors %}
+    {% for error in field.errors %}
+      <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+    {% endfor %}
+  {% endif %}
+{% else %}
+  {% if field.errors %}
+    {% for error in field.errors %}
+      <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ error }}</p>
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{% if not help_text_inline %}
+  {% if field.help_text %}
+    {% if help_text_inline %}
+      <p id="hint_{{ field.auto_id }}" class="text-gray-600">{{ field.help_text|safe }}</p>x
+    {% else %}
+      <small id="hint_{{ field.auto_id }}" class="text-gray-600">{{ field.help_text|safe }}</small>
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% endraw %}
