@@ -1,0 +1,9 @@
+{% raw %}
+{% load compress %}
+{% load static %}
+
+{% comment %} {% compress css %} {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/default__main.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom__main.css' %}">
+{% comment %} {% endcompress %} {% endcomment %}
+{% endraw %}

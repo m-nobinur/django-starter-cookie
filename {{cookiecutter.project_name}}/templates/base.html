@@ -1,0 +1,29 @@
+{% raw %}
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <!-- Head -->
+    {% include "_includes/head.html" %}
+    <title>
+      {% block title %} {% endblock title %}
+    </title>
+  </head>
+
+  <body class="bg-gray-100">
+    {% with request.resolver_match.url_name as view_url %}
+      {% if view_url != "account_login" and view_url != "account_signup"  %}
+        <!-- Header -->
+        {% include '_includes/header.html' %}
+      {% endif %}
+      <!-- Main -->
+      {% block content %} {% endblock content %}
+
+      {% if view_url != "account_login" and view_url != "account_signup"  %}
+        <!-- Footer -->
+        {% include "_includes/footer.html" %}
+        {% include "_includes/scripts.html" %}
+      {% endif %}
+    {% endwith %}
+  </body>
+</html>
+{% endraw %}
