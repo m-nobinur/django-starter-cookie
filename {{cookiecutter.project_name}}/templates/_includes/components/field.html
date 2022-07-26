@@ -1,4 +1,3 @@
-{% raw %}
 {% load add_css %}
 <div>
   {% if field.label %}
@@ -12,10 +11,9 @@
   {% if field.errors %}
     {{ field|addcss:"border border-red-500" }}
   {% else %}
-    {{ field }}
+    {{ field|addcss:"border border-gray-300" }}
   {% endif %}
 
   {# HELP TEXT #}
   {% include "_includes/components/field_err.html" %}
 </div>
-{% endraw %}

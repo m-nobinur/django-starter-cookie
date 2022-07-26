@@ -1,20 +1,20 @@
 name_field_css_classes: str = (
-    "shadow-sm bg-gray-50 border border-gray-300 text-gray-900"
+    "shadow-sm bg-gray-50 text-gray-900"
     " text-sm rounded-lg focus:ring-purple-400 focus:border-purple-400 block w-full p-2.5"
 )
 
 password_field_css_classes: str = (
-    "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm "
+    "shadow-sm bg-gray-50 text-gray-900 text-sm "
     "rounded-lg focus:ring-purple-400 focus:border-purple-400 block w-full p-2.5"
 )
 
 login_field_css_classes: str = (
-    "px-4 py-2 transition duration-300 border border-gray-300 rounded "
+    "px-4 py-2 transition duration-300 rounded "
     "focus:border-transparent focus:outline-none focus:ring-4 focus:ring-purple-200"
 )
 
 login_password_css_classes: str = (
-    "px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent "
+    "px-4 py-2 transition duration-300 rounded focus:border-transparent "
     "focus:outline-none focus:ring-4 focus:ring-purple-200"
 )
 
