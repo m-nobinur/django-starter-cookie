@@ -1,15 +1,16 @@
 {% if cookiecutter.cloud_provider == 'AWS' -%}
-from django.conf import settings
 from storages.backends.s3boto3 import S3Boto3Storage
+
+from {{ cookiecutter.project_base }}.settings.prod import MEDIAFILES_LOCATION, STATICFILES_LOCATION
 
 
 class StaticRootS3Boto3Storage(S3Boto3Storage):
-    location = settings.STATICFILES_LOCATION
+    location = STATICFILES_LOCATION
     default_acl = "public-read"
 
 
 class MediaRootS3Boto3Storage(S3Boto3Storage):
-    location = settings.MEDIAFILES_LOCATION
+    location = MEDIAFILES_LOCATION
     file_overwrite = False
 {%- elif cookiecutter.cloud_provider == 'GCP' -%}
 from storages.backends.gcloud import GoogleCloudStorage

@@ -6,12 +6,10 @@ django-environ==0.9.0
 django-structlog==2.2.0
 django-allauth==0.51.0
 django-crispy-forms==1.14.0
-crispy-bootstrap5==0.6
+crispy-tailwind==0.5.0
 sorl-thumbnail==12.8.0
 django-admin-interface==0.19.1
-{%- if cookiecutter.frontend_compressor == 'Django Compressor' %}
 django-compressor==3.1  # https://github.com/django-compressor/django-compressor
-{%- endif %}
 {%- if cookiecutter.use_htmx == 'y' %}
 django-htmx==1.11.0
 {%- endif %}

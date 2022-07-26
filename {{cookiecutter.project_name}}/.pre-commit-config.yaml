@@ -31,8 +31,3 @@ repos:
       - id: flake8
         args: ["--config=setup.cfg"]
         additional_dependencies: [flake8-isort]
-
-  -   repo: https://github.com/asottile/dead
-    rev: v1.5.0
-    hooks:
-    -   id: dead
