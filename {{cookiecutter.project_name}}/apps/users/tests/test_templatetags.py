@@ -23,4 +23,3 @@ def test_add_css_template_tag(db):
     output = template.render(context)
     assert output is not None
     assert "border" in output
-    print(output)
