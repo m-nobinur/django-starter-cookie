@@ -3,7 +3,8 @@
 {% load static %}
 
 {% comment %} {% compress js %} {% endcomment %}
-<script defer src="{% static 'js/vendors/flowbite.js' %}"></script>
+<script defer src="{% static 'js/vendors/flowbite.min.js' %}"></script>
+<script defer src="{% static 'js/vendors/htmx.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 {% comment %} {% endcompress %} {% endcomment %}
 {% endraw %}
