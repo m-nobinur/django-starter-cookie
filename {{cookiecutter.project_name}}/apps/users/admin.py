@@ -1,32 +1,43 @@
 from django.contrib import admin
-from django.contrib.auth import admin as auth_admin
-from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
+from users.forms import UserChangeForm, UserCreationForm
 
-from users.forms import UserAdminChangeForm, UserAdminCreationForm
+User = get_user_model()
 
 
-@admin.register(User)
-class UserAdmin(auth_admin.UserAdmin):
+class UserAdmin(BaseUserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
 
-    form = UserAdminChangeForm
-    add_form = UserAdminCreationForm
+    list_display = ("first_name", "email", "is_admin")
+    list_filter = ("is_admin",)
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("name", "email")}),
+        (None, {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        ("Permissions", {"fields": ("is_admin", "is_staff", "is_active")}),
+    )
+    add_fieldsets = (
         (
-            _("Permissions"),
+            None,
             {
+                "classes": ("wide",),
                 "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password1",
+                    "password2",
                 ),
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "name", "is_superuser"]
-    search_fields = ["name"]
+    search_fields = ("email", "last_name")
+    ordering = ("email",)
+    filter_horizontal = ()
+
+
+admin.site.register(User, UserAdmin)
+
+admin.site.unregister(Group)

@@ -1,4 +1,5 @@
 import pytest
+from django.contrib.auth.models import User as UserType
 from users.models import User
 from users.tests.fixtures import *  # noqa
 
@@ -46,11 +47,11 @@ def test_user_can_not_be_created_without_email(user: User):
 
 
 def test_super_user_can_be_created(user: User):
-    _suser = User.objects.create_superuser(
+    _suser: UserType = User.objects.create_superuser(
         email="suser@mail.com", password=user.password
     )
     assert _suser.email == "suser@mail.com"
-    assert _suser.is_superuser is True
+    assert _suser.is_admin is True  # type: ignore
     assert _suser.is_staff is True
 
 
@@ -59,14 +60,14 @@ def test_superuser_must_be_staff(user: User):
         User.objects.create_superuser(None, user.password, is_staff=False)
 
 
-def test_superuser_must_be_is_superuser(user: User):
-    with pytest.raises(ValueError, match="Superuser must have is_superuser=True."):
-        User.objects.create_superuser(None, user.password, is_superuser=False)
+def test_superuser_must_be_is_admin(user: User):
+    with pytest.raises(ValueError, match="Superuser must have is_admin=True."):
+        User.objects.create_superuser(None, user.password, is_admin=False)
 
 
 def test_create_user(user: User):
-    _user = User.objects.create_user("test_user@mail.com", user.password)
+    _user: UserType = User.objects.create_user("test_user@mail.com", user.password)
     assert _user.email == "test_user@mail.com"
-    assert _user.is_superuser is False
+    assert _user.is_admin is False  # type: ignore
     assert _user.is_staff is False
     assert _user.is_active is True

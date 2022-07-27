@@ -1,5 +1,5 @@
 import pytest
-from users.forms import UserLoginForm, UserSignupForm
+from users.forms import UserCreationForm, UserLoginForm, UserSignupForm
 from users.models import User
 from users.tests.fixtures import *  # noqa
 
@@ -99,7 +99,41 @@ def test_signup_form_save_method(db, user: User, client):
     assert isinstance(form.save(client), User)
 
 
-#     assert not form.is_valid()
-#     assert len(form.errors) == 1
-#     assert "username" in form.errors
-#     assert form.errors["username"][0] == _("This username has already been taken.")
+def test_user_creation_form(db, user: User, client):
+
+    form = UserCreationForm(
+        data={
+            "first_name": "first_name",
+            "last_name": "last_name",
+            "email": "email@mail.com",
+            "password1": "password1234",
+            "password2": "password1234",
+        }
+    )
+
+    assert form.is_valid()
+    assert callable(form.save)
+    assert form.cleaned_data["first_name"] == "first_name"
+    assert form.cleaned_data["last_name"] == "last_name"
+    assert form.cleaned_data["email"] == "email@mail.com"
+    assert form.cleaned_data["password1"] == "password1234"
+    assert form.cleaned_data["password2"] == "password1234"
+
+    assert isinstance(form.save(client), User)
+
+
+def test_user_creation_form_error(db, user: User, client):
+    form = UserCreationForm(
+        data={
+            "first_name": "first_name",
+            "last_name": "last_name",
+            "email": "email@mail.com",
+            "password1": "password1234",
+            "password2": "password14",
+        }
+    )
+
+    assert not form.is_valid()
+    assert len(form.errors) == 1
+    assert "password2" in form.errors
+    assert form.errors["password2"][0] == ("Passwords don't match")
