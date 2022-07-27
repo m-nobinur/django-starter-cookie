@@ -191,7 +191,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_REQUIRED: bool = True
-# ACCOUNT_ADAPTER = "apps.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 ACCOUNT_FORMS = {
     "login": "users.forms.UserLoginForm",
     "signup": "users.forms.UserSignupForm",
@@ -230,7 +230,7 @@ ACCOUNT_SIGNUP_REDIRECT_URL = reverse_lazy("account_email_verification_sent")
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
 INSTALLED_APPS += ["compressor"]
 
-COMPRESS_ENABLED: Union[str, bool] = os.environ.get("COMPRESS_ENABLED", default=True)
+COMPRESS_ENABLED: Union[str, bool] = env.bool("COMPRESS_ENABLED", default=True)
 COMPRESS_ROOT = BASE_DIR / "static"
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 

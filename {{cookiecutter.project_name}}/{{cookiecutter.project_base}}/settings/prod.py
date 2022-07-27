@@ -155,7 +155,6 @@ ADMIN_URL: Optional[str] = os.environ.get("DJANGO_ADMIN_URL") # type: ignore
 # ==============================
 # django-compressor
 # ==============================
-COMPRESS_ENABLED = env.bool("COMPRESS_ENABLED", default=True)  # noqa: F405
 {%- if cookiecutter.cloud_provider == 'None' %}
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_STORAGE
 COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
