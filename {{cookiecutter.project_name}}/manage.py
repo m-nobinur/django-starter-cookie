@@ -6,7 +6,9 @@ from pathlib import Path
 
 
 def main() -> None:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
+    os.environ.setdefault(
+        "DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_base }}.settings.local"
+    )
 
     try:
         from django.core.management import execute_from_command_line
